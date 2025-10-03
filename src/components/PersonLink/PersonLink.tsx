@@ -1,15 +1,22 @@
+// src/components/PersonLink/PersonLink.tsx
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { Person } from '../../types';
 
 type Props = {
-  person?: Person;
-  fallback?: string;
+  name?: string | null;
+  people: Person[];
 };
 
-export const PersonLink: React.FC<Props> = ({ person, fallback }) => {
+export const PersonLink: React.FC<Props> = ({ name, people }) => {
+  if (!name) {
+    return <>-</>;
+  }
+
+  const person = people.find(p => p.name === name);
+
   if (!person) {
-    return <span>{fallback || '-'}</span>;
+    return <>{name}</>;
   }
 
   return (
